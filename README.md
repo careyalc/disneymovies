@@ -1,4 +1,5 @@
-##Disney Movies
+
+## Disney Movies
 ### by Alex Carey
 
 ## Purpose
@@ -10,7 +11,7 @@ This app will allow users to learn more about Disney characters, and actors, and
 The data for this project was taken from a project found on data.world. The original files can be found [here](https://data.world/kgarrett/disney-character-success-00-16). I will not be using all of these files, but instead parts to create relationships between the actors, characters, movies, directors, etc. More details can be seen in the data model below. 
 
 ## Data Model
-![Disney Model](/disneymovies/mysite/static/images/disney_model.png "data model")
+![Disney Model](/disneymovies/static/images/disney_model.png "data model")
 
 ## Package Dependencies 
 will add later
