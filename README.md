@@ -1,5 +1,5 @@
 
-## Disney Movies
+# Disney Movies
 ### by Alex Carey
 
 ## Purpose
