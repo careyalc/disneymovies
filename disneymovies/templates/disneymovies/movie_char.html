@@ -1,0 +1,24 @@
+{% extends 'disneymovies/base.html' %}
+<!-- {% load staticfiles %} -->
+{% block content %}
+
+<article>
+<!-- <header>
+<h1>Disney Movies</h1>
+</header>
+ -->
+   {% if movie_characters %}
+      <ul>  
+        {% for movie_char in movie_characters %}
+        <li><a href="{% url 'char_detail' movie_char.pk %}">{{ movie_char.movie_char_name }}</a></li>
+        {% endfor %}
+      </ul>
+
+      {% else %}
+      <p>No Disney Characters are available to view.</p>
+   {% endif %}
+
+<p>character count: {{ movie_characters.count }}</p>
+ </article>
+
+{% endblock content %}
