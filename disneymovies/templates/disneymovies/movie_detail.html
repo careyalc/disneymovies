@@ -13,13 +13,13 @@
    
    <img src="/../../static/images/{{movie.movie_id}}.jpeg" alt="movie image">
 
-    {% if movie.dir_id %}
+    {% if movie.director.director_name %}
       <div class="row">
         <div class="col-sm-2">
           <p>Director:</p>
         </div>
         <div class="col-sm-10">
-          <p>{{ movie.dir_id | safe }}</p>
+          <p>{{ movie.director.director_name | safe }}</p> 
         </div>
       </div>
     {% endif %}
@@ -35,13 +35,13 @@
       </div>
     {% endif %}
 
-    {% if movie.genre_id %}
+    {% if movie.genre.genre_name %}
       <div class="row">
         <div class="col-sm-2">
           <p>Genre:</p>
         </div>
         <div class="col-sm-10">
-          <p>{{ movie.genre_id | safe }}</p> <!-- add join later! movie.director.director_name -->
+          <p>{{ movie.genre.genre_name | safe }}</p> 
         </div>
       </div>
     {% endif %}
@@ -80,5 +80,17 @@
          </div>
        </div>
      {% endif %}
+
+
+<!--     {% if movie.movie_character.movie_character_name %}
+       <div class="row">
+         <div class="col-sm-2">
+           <p>Characters:</p>
+         </div>
+         <div class="col-sm-10">
+           {{ movie.movie_character.movie_character_name | safe }}
+         </div>
+       </div>
+     {% endif %} -->
    
    {% endblock content %}

@@ -9,8 +9,8 @@
  -->
    {% if movie_characters %}
       <ul>  
-        {% for movie_char in movie_characters %}
-        <li><a href="{% url 'char_detail' movie_char.pk %}">{{ movie_char.movie_char_name }}</a></li>
+        {% for movie_character in movie_characters %}
+        <li><a href="{% url 'char_detail' movie_character.pk %}">{{ movie_character.movie_character_name }}</a></li>
         {% endfor %}
       </ul>
 

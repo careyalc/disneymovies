@@ -1,0 +1,27 @@
+{% extends 'disneymovies/base.html' %}
+
+    {% block content %}
+     <header>
+       <div class="row">
+         <div class="col-sm-10">
+           <h3>{{ movie_character.movie_character_name | safe }}</h3>
+         </div>
+         <div class="col-xs-1">
+         </div>
+       </div>
+     </header>
+   
+
+<!--     {% if movie_character.actor.actor_name %}
+      <div class="row">
+        <div class="col-sm-2">
+          <p>Actor:</p>
+        </div>
+        <div class="col-sm-10">
+          <p>{{ movie_character.actor.actor_name | safe }}</p> 
+        </div>
+      </div>
+    {% endif %} -->
+
+   
+   {% endblock content %}
