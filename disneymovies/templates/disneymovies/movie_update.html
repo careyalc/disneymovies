@@ -1,0 +1,69 @@
+{% extends 'disneymovies/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+  <header>
+    <div class="row">
+      <div class="col-sm-11">
+        <h2>Movie Update</h2>
+      </div>
+      <div class="col-xs-1">
+        <a class="btn btn-outline-secondary" href="{{request.META.HTTP_REFERER}}">Back</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- novalidate attribute required to render validation messages -->
+  <form method="post" novalidate>
+    {% csrf_token %}
+
+    <div class="row">
+      <div class="col-6">
+        {{ form.movie_title|as_crispy_field }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        {{ form.director|as_crispy_field }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        {{ form.release_date|as_crispy_field }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        {{ form.genre|as_crispy_field }}
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-6">
+        {{ form.song|as_crispy_field }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        {{ form.total_gross|as_crispy_field }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        {{ form.inflation_gross|as_crispy_field }}
+      </div>
+    </div>
+
+  <button type="submit" class="btn btn-outline-success">Update</button>
+    &nbsp;<a class="btn btn-outline-secondary" href="{% url 'home' %}">Cancel</a>
+</form>
+
+{% endblock content %}
