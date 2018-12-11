@@ -42,22 +42,31 @@ class MovieDetailView(generic.DetailView):
 		return Movie.objects.all().select_related('genre', 'director').order_by('movie_title')
 
 
+@method_decorator(login_required, name='dispatch')
 class CharPageView(generic.ListView):
 	model = MovieCharacter
 	context_object_name = 'movie_characters'
 	template_name = 'disneymovies/movie_char.html'
+	# paginate_by = 20
+
+	def dispatch(self, *args, **kwargs):
+		return super().dispatch(*args, **kwargs)
 
 	def get_queryset(self):
 		return MovieCharacter.objects.all().order_by('movie_character_name')
 
 
+@method_decorator(login_required, name='dispatch')
 class CharDetailView(generic.DetailView):
 	model = MovieCharacter
 	context_object_name = 'movie_character'
 	template_name = 'disneymovies/char_detail.html'
 
+	def dispatch(self, *args, **kwargs):
+		return super().dispatch(*args, **kwargs)
+
 	# def get_queryset(self):
-	# 	return MovieCharacter.objects.all().select_related('credit', 'actor').order_by('movie_character_name')
+	# 	return .objects.select_related('credit', 'actor').order_by('movie_character_name')
 
 	# def get_queryset(self):
 	# 	return Credit.objects.all().select_related('actor', 'movie_character').order_by('movie_character_name')
@@ -66,6 +75,7 @@ class CharDetailView(generic.DetailView):
 class MovieFilterView(FilterView):
 	filterset_class = DisneyMovieFilter
 	template_name = 'disneymovies/movie_filter.html'
+
 
 #############
 # class PaginatedFilterView(generic.View):

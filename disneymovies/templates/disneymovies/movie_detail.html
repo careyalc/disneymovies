@@ -67,7 +67,7 @@
            <p>Gross Total:</p>
          </div>
          <div class="col-sm-10">
-           <p>{{ movie.total_gross | safe }}</p>
+           <p>$ {{ movie.total_gross | safe }}</p>
          </div>
        </div>
      {% endif %}
@@ -79,7 +79,7 @@
            <p>Total After Inflation:</p>
          </div>
          <div class="col-sm-10">
-           {{ movie.inflation_gross | safe }}
+           <p>$ {{ movie.inflation_gross | safe }}</p>
          </div>
        </div>
      {% endif %}

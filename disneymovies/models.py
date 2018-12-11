@@ -86,7 +86,7 @@ class Actor(models.Model):
 class MovieCharacter(models.Model):
     movie_character_id = models.AutoField(primary_key=True)
     movie_character_name = models.CharField(unique=True, max_length=150)
-    actor = models.ManyToManyField('Actor', through='Credit')
+    actors = models.ManyToManyField('Actor', through='Credit', related_name='movies')
     # credit = models.ForeignKey('Credit', on_delete=models.CASCADE)
     # characters = models many to many through credit table
 

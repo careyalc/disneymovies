@@ -1,6 +1,9 @@
 {% extends 'disneymovies/base.html' %}
 
     {% block content %}
+
+     {% if user.is_authenticated %}
+
      <header>
        <div class="row">
          <div class="col-sm-10">
@@ -12,16 +15,21 @@
      </header>
    
 
-<!--     {% if movie_character.actor.actor_name %}
       <div class="row">
         <div class="col-sm-2">
           <p>Actor:</p>
         </div>
         <div class="col-sm-10">
-          <p>{{ movie_character.actor.actor_name | safe }}</p> 
+          {% for actor in movie_character.actors.all %}
+           <p>{{ actor.actor_name | safe }}</p> 
+          {% endfor %}
         </div>
       </div>
-    {% endif %} -->
+
+
+    {% else %}
+    <a href="{% url 'login' %}">Login</a>
+    {% endif %}
 
    
    {% endblock content %}

@@ -12,7 +12,6 @@ class DisneyMovieFilter(django_filters.FilterSet):
 	#filter by genre
 	genre_name = django_filters.ModelChoiceFilter(
 		field_name='genre__genre_name',
-		# field_name='country_area__heritage_site_category__category_name',
 		label='Genre',
 		queryset = Genre.objects.all().order_by('genre_name'),
 		lookup_expr='exact'
@@ -21,10 +20,16 @@ class DisneyMovieFilter(django_filters.FilterSet):
 	#filter by director
 	director_name = django_filters.ModelChoiceFilter(
 		field_name='director__director_name',
-		# field_name='country_area__heritage_site_category__category_name',
 		label='Director',
 		queryset = Director.objects.all().order_by('director_name'),
 		lookup_expr='exact'
+	)
+
+	#filter by song
+	song = django_filters.CharFilter(
+		field_name='song',
+		label='Song',
+		lookup_expr='icontains'
 	)
 
 

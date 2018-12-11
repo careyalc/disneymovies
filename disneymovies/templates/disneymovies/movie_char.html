@@ -2,6 +2,8 @@
 <!-- {% load staticfiles %} -->
 {% block content %}
 
+ {% if user.is_authenticated %}
+
 <article>
 <!-- <header>
 <h1>Disney Movies</h1>
@@ -21,5 +23,9 @@
 
 <p>character count: {{ movie_characters.count }}</p>
  </article>
+
+   {% else %}
+    <a href="{% url 'login' %}">Login</a>
+   {% endif %}
 
 {% endblock content %}

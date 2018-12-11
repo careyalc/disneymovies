@@ -19,6 +19,10 @@ media
 *.py[cod]
 *$py.class
 
+
+### Django Secrets ###
+**/secrets.py
+
 # C extensions
 *.so
 
