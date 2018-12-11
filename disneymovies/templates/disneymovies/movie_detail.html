@@ -10,9 +10,12 @@
          </div>
        </div>
      </header>
-   
-   <img src="/../../static/images/{{movie.movie_id}}.jpeg" alt="movie image">
 
+   <div class="movie-detail">
+   
+   <div class="block2"><img src="/../../static/images/{{movie.movie_id}}.jpeg" alt="movie image" class="title-image"></div>
+
+  <div class="block1">
     {% if movie.director.director_name %}
       <div class="row">
         <div class="col-sm-2">
@@ -82,15 +85,18 @@
      {% endif %}
 
 
-<!--     {% if movie.movie_character.movie_character_name %}
+    {% if movie.credit.movie_character.movie_character_name %}
        <div class="row">
          <div class="col-sm-2">
            <p>Characters:</p>
          </div>
          <div class="col-sm-10">
-           {{ movie.movie_character.movie_character_name | safe }}
+          {{ movie.credit.movie_character.movie_character_name | safe }}
          </div>
        </div>
-     {% endif %} -->
+    </div>
+  </div>
+
+     {% endif %}
    
    {% endblock content %}
