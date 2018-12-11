@@ -213,12 +213,15 @@ a:visited {
 }
 */
 
+.chars a{
+    color: white;
+}
 
 div.movie-detail{
     background-color: black;
     padding: 30px;
     display: inline-flex;
-    width: 50%;
+    width: 60%;
 }
 
 /*.title-image{

@@ -84,7 +84,7 @@
        </div>
      {% endif %}
 
-
+<!-- 
     {% if movie.credit.movie_character.movie_character_name %}
        <div class="row">
          <div class="col-sm-2">
@@ -94,9 +94,24 @@
           {{ movie.credit.movie_character.movie_character_name | safe }}
          </div>
        </div>
+    {% endif %} -->
+
+  
+        <div class="row">
+         <div class="col-sm-2">
+           <p>Characters:</p>
+         </div>
+         <div class="col-sm-10">
+          {% for movie_character in movie.movie_characters.all %}
+           <a class="chars" href="{% url 'char_detail' movie_character.pk %}">{{ movie_character.movie_character_name | safe }}</a>
+          {% endfor %}
+         </div>
+       </div>
+       
+
     </div>
   </div>
 
-     {% endif %}
+     
    
    {% endblock content %}

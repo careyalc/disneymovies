@@ -4,9 +4,9 @@ from django.views import generic
 
 from .models import Movie, MovieCharacter, Credit
 # from .forms import HeritageSiteForm
-# from .filters import HeritageSiteFilter
-# import django_filters
-# from django_filters.views import FilterView
+from .filters import DisneyMovieFilter
+import django_filters
+from django_filters.views import FilterView
 
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -29,6 +29,9 @@ class HomePageView(generic.ListView):
 
 	# def get_queryset(self):
 	# 	return Movie.objects.all().select_related('director').order_by('movie_title')
+
+class AboutPageView(generic.TemplateView):
+	template_name = 'disneymovies/about.html'
 
 class MovieDetailView(generic.DetailView):
 	model = Movie
@@ -59,3 +62,23 @@ class CharDetailView(generic.DetailView):
 	# def get_queryset(self):
 	# 	return Credit.objects.all().select_related('actor', 'movie_character').order_by('movie_character_name')
 
+
+class MovieFilterView(FilterView):
+	filterset_class = DisneyMovieFilter
+	template_name = 'disneymovies/movie_filter.html'
+
+#############
+# class PaginatedFilterView(generic.View):
+# 	"""
+# 	Creates a view mixin, which separates out default 'page' keyword and returns the
+# 	remaining querystring as a new template context variable.
+# 	https://stackoverflow.com/questions/51389848/how-can-i-use-pagination-with-django-filter
+# 	"""
+# 	def get_context_data(self, **kwargs):
+# 		context = super(PaginatedFilterView, self).get_context_data(**kwargs)
+# 		if self.request.GET:
+# 			querystring = self.request.GET.copy()
+# 			if self.request.GET.get('page'):
+# 				del querystring['page']
+# 			context['querystring'] = querystring.urlencode()
+# 		return context
