@@ -187,13 +187,14 @@ a:visited {
 }
 
 .btn-outline-success {
-    color: #E85A4F;
-    border-color: #E85A4F;
+    color: #ffbe3d;
+    border-color: #ffbe3d;
 }
 
 .btn-outline-success:hover {
     color: white;
-    background-color: #E85A4F;
+    background-color: #ffbe3d;
+    border-color: white;
 }
 
 /*

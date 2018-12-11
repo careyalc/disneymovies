@@ -1,5 +1,5 @@
 import django_filters
-from disneymovies.models import Movie, Genre
+from disneymovies.models import Movie, Genre, Director
 
 
 class DisneyMovieFilter(django_filters.FilterSet):
@@ -15,6 +15,15 @@ class DisneyMovieFilter(django_filters.FilterSet):
 		# field_name='country_area__heritage_site_category__category_name',
 		label='Genre',
 		queryset = Genre.objects.all().order_by('genre_name'),
+		lookup_expr='exact'
+	)
+
+	#filter by director
+	director_name = django_filters.ModelChoiceFilter(
+		field_name='director__director_name',
+		# field_name='country_area__heritage_site_category__category_name',
+		label='Director',
+		queryset = Director.objects.all().order_by('director_name'),
 		lookup_expr='exact'
 	)
 

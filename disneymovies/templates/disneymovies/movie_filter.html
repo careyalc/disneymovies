@@ -18,12 +18,14 @@
         <!-- add a link to the detail page (below)-->
         <h4><a href="{% url 'movie_detail' movie.pk %}">{{ movie.movie_title | safe }}</a></h4>
 
-        <!-- add the country_area_names and description template tags NOTE may have to change this if not matching my country area stuff-->
-
         <!-- see heritage sites for what to put here -->
+        {% if movie.release_date %}
+          <p>{{ movie.release_date | safe }}</p>
+        {% endif %}
 
 
-        <!-- end add work -->
+        <!-- <img src="/../../static/images/{{movie.movie_id}}.jpeg" alt="movie image"> -->
+        <!-- this works but doesnt look good -->
 
 
     {% empty %}
