@@ -23,7 +23,7 @@ nav {
  */
 
 .navbar-custom {
-    background-color: #ffa3de;
+    background-color: #ff93d8;
     /*pink^*/
     color: #070a47;
     /*navy^*/
@@ -91,10 +91,14 @@ ul {
  */
 
 footer {
-    background-color: #ffa3de; 
-    /*bright red*/ 
+    background-color: #ff93d8; 
+    /*pink*/ 
     color: #070a47;
     padding: 0.8rem 1rem;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
 }
 
 footer a:link {
@@ -191,3 +195,47 @@ a:visited {
     color: white;
     background-color: #E85A4F;
 }
+
+/*
+ Movie detail page stuff
+ */
+.col-sm-2 p{
+    color: #ffbe3d;
+    /*gold*/
+}
+
+.col-sm-2{
+    width: 700px;
+}
+
+/*.col-sm-10{
+    text-align: right;
+}
+*/
+
+
+div.movie-detail{
+    background-color: black;
+    padding: 30px;
+    display: inline-flex;
+    width: 50%;
+}
+
+/*.title-image{
+
+
+}*/
+
+.block1{
+    width: 80%;
+    padding: 2%;
+}
+
+.block2{
+    width: 40%;
+    padding: 2%;
+    /*text-align: grid;*/
+    /*display: ;*/
+}
+
+
