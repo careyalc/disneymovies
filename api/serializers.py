@@ -60,10 +60,15 @@ class ActorSerializer(serializers.ModelSerializer):
 class CreditSerializer(serializers.ModelSerializer):
 	movie_id = serializers.ReadOnlyField(source='movie.movie_id')
 	movie_character_id = serializers.ReadOnlyField(source='movie_character.movie_character_id')
+	actor_id = serializers.ReadOnlyField(source='actor.actor_id')
 
 	class Meta:
 		model = Credit
-		fields = ('movie_id', 'movie_character_id') #double check that this should not be movie_title and movie_character_name
+		fields = ('movie_id', 'movie_character_id', 'actor_id') #double check that this should not be movie_title and movie_character_name
+
+class CreditUserSerializer(serializers.Serializer):
+	movie_character_id = serializers.PrimaryKeyRelatedField(write_only=True, queryset=MovieCharacter.objects.all(), source='movie_character')
+	actor_id = serializers.PrimaryKeyRelatedField(write_only=True, queryset=Actor.objects.all(), source="actor")
 
 
 class MovieSerializer(serializers.ModelSerializer):
@@ -110,10 +115,15 @@ class MovieSerializer(serializers.ModelSerializer):
 		many=True,
 		read_only=True
 	) #should this be called movie_character like in model?
-	credit_ids = serializers.PrimaryKeyRelatedField(
+	# credit_ids = serializers.PrimaryKeyRelatedField(
+	# 	many=True,
+	# 	write_only=True,
+	# 	queryset=MovieCharacter.objects.all(),
+	# 	source='credit'
+	# ) 
+	credit_ids = CreditUserSerializer(
 		many=True,
 		write_only=True,
-		queryset=MovieCharacter.objects.all(),
 		source='credit'
 	) 
 
@@ -149,18 +159,21 @@ class MovieSerializer(serializers.ModelSerializer):
 		# print(validated_data)
 
 		movie_characters = validated_data.pop('credit')
-		movie = Movie.objects.create(**validated_data) 
+		newmovie = Movie.objects.create(**validated_data) 
+		# movie_id = movie.movie_id
+
 
 		if movie_characters is not None:
 			for movie_character in movie_characters:
 				Credit.objects.create(
-					movie_character_id=movie_character[0]["movie_character_id"],
-					actor_id=movie_character[1]["actor_id"],
-					movie_id=movie_character[2]["movie_id"]
+					movie_character=movie_character["movie_character"],
+					actor=movie_character["actor"],
+					movie=newmovie
+					# movie_id=movie_character[2]["movie_id"]
 					# movie_id=movie.movie_id,
 					# movie_character_id=movie_character.movie_character_id
 				)
-		return movie
+		return newmovie
 
 	def update(self, instance, validated_data):
 		# site_id = validated_data.pop('heritage_site_id') #PUT
@@ -171,17 +184,17 @@ class MovieSerializer(serializers.ModelSerializer):
 			'movie_title',
 			instance.movie_title
 		)
-		instance.director_id = validated_data.get(
-			'director_id',
-			instance.director_id
+		instance.director = validated_data.get(
+			'director',
+			instance.director
 		)         #or would it be the id instead like in the heritage sites? #added id, but should take out if not needed above...
 		instance.release_date = validated_data.get(
 			'release_date',
 			instance.release_date
 		)
-		instance.genre_id = validated_data.get(
-			'genre_id',
-			instance.genre_id
+		instance.genre = validated_data.get(
+			'genre',
+			instance.genre
 		)              #again, should it be id instead? #same as above...
 		instance.song = validated_data.get(
 			'song',
@@ -205,7 +218,7 @@ class MovieSerializer(serializers.ModelSerializer):
 
 		# Insert may not be required (Just return instance) ... so, is below not needed? should I delete?
 
-		# Insert new unmatched country entries
+		# Insert new unmatched
 		for movie_character in new_movie_characters:
 			new_id = movie_character.movie_character_id
 			new_ids.append(new_id)
