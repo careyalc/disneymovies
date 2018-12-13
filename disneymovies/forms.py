@@ -1,7 +1,7 @@
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
-from disneymovies.models import Movie
+from disneymovies.models import Movie, Director, Genre, MovieCharacter, Actor, Credit
 
 
 class MovieForm(forms.ModelForm):

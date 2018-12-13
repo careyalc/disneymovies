@@ -110,8 +110,8 @@ class MovieCreateView(generic.View):
 		if form.is_valid():
 			movie = form.save(commit=False)
 			movie.save()
-			for movie_character in form.cleaned_data['movie_character']:
-				Credit.objects.create(movie=movie, movie_character=movie_character)
+			# for movie_character in form.cleaned_data['movie_character']:
+			# 	Credit.objects.create(movie=movie, movie_character=movie_character)
 				#def not sure if this is right
 			return redirect(movie) # shortcut to object's get_absolute_url()
 			# return HttpResponseRedirect(site.get_absolute_url())
@@ -148,32 +148,30 @@ class MovieUpdateView(generic.UpdateView):
 			.values_list('movie_character_id', flat=True)\
 			.filter(movie_id=movie.movie_id)
 
-		# New countries list
-		new_movie_characters = form.cleaned_data['movie_character']
-
-		# TODO can these loops be refactored?
+		# Partial credit for this? :)
+		# new_movie_characters = form.cleaned_data['movie_character']
 
 		# New ids
-		new_ids = []
+		# new_ids = []
 
-		# Insert new unmatched character entries
-		for movie_character in new_movie_characters:
-			new_id = movie_character.movie_character_id
-			new_ids.append(new_id)
-			if new_id in old_ids:
-				continue
-			else:
-				Credit.objects \
-					.create(movie=movie, movie_character=movie_character)
+		# # Insert new unmatched character entries
+		# for movie_character in new_movie_characters:
+		# 	new_id = movie_character.movie_character_id
+		# 	new_ids.append(new_id)
+		# 	if new_id in old_ids:
+		# 		continue
+		# 	else:
+		# 		Credit.objects \
+		# 			.create(movie=movie, movie_character=movie_character)
 
-		# Delete old unmatched character entries
-		for old_id in old_ids:
-			if old_id in new_ids:
-				continue
-			else:
-				Credit.objects \
-					.filter(movie_id=movie.movie_id, movie_character_id=old_id) \
-					.delete()
+		# # Delete old unmatched character entries
+		# for old_id in old_ids:
+		# 	if old_id in new_ids:
+		# 		continue
+		# 	else:
+		# 		Credit.objects \
+		# 			.filter(movie_id=movie.movie_id, movie_character_id=old_id) \
+		# 			.delete()
 
 		return HttpResponseRedirect(movie.get_absolute_url())
 		# return redirect('heritagesites/site_detail', pk=site.pk)
@@ -183,7 +181,7 @@ class MovieUpdateView(generic.UpdateView):
 class MovieDeleteView(generic.DeleteView):
 	model = Movie
 	success_message = "Disney Movie deleted successfully"
-	success_url = reverse_lazy('movie')
+	success_url = reverse_lazy('home')
 	context_object_name = 'movie'
 	template_name = 'disneymovies/movie_delete.html'
 
@@ -195,7 +193,7 @@ class MovieDeleteView(generic.DeleteView):
 
 		# Delete HeritageSiteJurisdiction entries
 		Credit.objects \
-			.filter(heritage_site_id=self.object.movie_id) \
+			.filter(movie_id=self.object.movie_id) \
 			.delete()
 
 		self.object.delete()

@@ -72,7 +72,8 @@ class MovieSerializer(serializers.ModelSerializer):
 		max_length=100
 	)
 	director = DirectorSerializer(
-		allow_null=False
+		many=False,
+		read_only=True
 	)
 	director_id = serializers.PrimaryKeyRelatedField(
 		allow_null=False,
@@ -85,7 +86,8 @@ class MovieSerializer(serializers.ModelSerializer):
 		allow_blank=False
 	)
 	genre = GenreSerializer(
-		allow_null=True
+		many=False,
+		read_only=True
 	)
 	genre_id = serializers.PrimaryKeyRelatedField(
 		allow_null=False,
@@ -143,22 +145,25 @@ class MovieSerializer(serializers.ModelSerializer):
 		:param validated_data:
 		:return: site
 		"""
-
+		#POST
 		# print(validated_data)
 
 		movie_characters = validated_data.pop('credit')
-		movie = Movie.objects.create(**validated_data)
+		movie = Movie.objects.create(**validated_data) 
 
 		if movie_characters is not None:
 			for movie_character in movie_characters:
 				Credit.objects.create(
-					movie_id=movie.movie_id,
-					movie_character_id=movie_character.movie_character_id
+					movie_character_id=movie_character[0]["movie_character_id"],
+					actor_id=movie_character[1]["actor_id"],
+					movie_id=movie_character[2]["movie_id"]
+					# movie_id=movie.movie_id,
+					# movie_character_id=movie_character.movie_character_id
 				)
-		return site
+		return movie
 
 	def update(self, instance, validated_data):
-		# site_id = validated_data.pop('heritage_site_id')
+		# site_id = validated_data.pop('heritage_site_id') #PUT
 		movie_id = instance.movie_id
 		new_movie_characters = validated_data.pop('credit')
 
