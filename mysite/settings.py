@@ -42,10 +42,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'api.apps.ApiConfig',
     'disneymovies.apps.DisneymoviesConfig',
     'crispy_forms',
     'django_filters',
-    'social_django'
+    'social_django',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
+    'rest_framework_swagger',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'corsheaders',
     # 'test_without_migrations'
 ]
 
@@ -58,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -127,6 +138,28 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+#API stuff
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication'
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly'
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        # 'rest_framework.permissions.AllowAny'
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
+
+CORS_ORIGIN_WHITELIST = (
+    '127.0.0.1:3000/'
+)
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+SITE_ID = 1
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/

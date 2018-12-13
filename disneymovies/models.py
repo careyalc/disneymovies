@@ -4,11 +4,11 @@ from django.urls import reverse
 class Movie(models.Model):
     movie_id = models.AutoField(primary_key=True)
     movie_title = models.CharField(unique=True, max_length=100)
-    director = models.ForeignKey('Director', on_delete=models.PROTECT)
+    director = models.ForeignKey('Director', on_delete=models.CASCADE)
     # dir_id = models.IntegerField(blank=True)
     release_date = models.CharField(max_length=45)
     # release_date = models.IntegerField(blank=True, null=True)
-    genre =  models.ForeignKey('Genre', on_delete=models.PROTECT)
+    genre =  models.ForeignKey('Genre', on_delete=models.CASCADE)
     # genre_id = models.IntegerField(blank=True)
     song = models.CharField(max_length=100, null=True)
     total_gross = models.IntegerField(blank=True, null=True)

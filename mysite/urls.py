@@ -27,5 +27,9 @@ urlpatterns = [
     path('auth/', include('social_django.urls', namespace='social')),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
-    path('disneymovies/', include('disneymovies.urls'))
+    path('disneymovies/', include('disneymovies.urls')),
+    path('disneymovies/api/rest-auth/', include('rest_auth.urls')),
+    path('disneymovies/api/rest-auth/registration/', include('rest_auth.registration.urls')),
+    path('api-auth/', include('rest_framework.urls')),
+    path('disneymovies/api/', include('api.urls')),
 ]
